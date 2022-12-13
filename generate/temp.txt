@@ -1,0 +1,73 @@
+
+
+{'freq_insert_query': 'insert my_database.my_collection query: { "name": "James" } ',
+ 'freq_select_query': 'find my_database.my_collection filter: { "name": "Clint" } ',
+'freq_update_query': 'update my_database.my_collection query: { "name": "Clint" } update: { $set: { "age": 15} } ',
+'freq_delete_query': 'delete my_database.my_collection query: { "name": "Jane" } ',
+
+
+'freq_tables': ['my_collection'],
+
+'min_time': 10.0, 
+'max_time': 200.0, 
+'mean_time': 107.92802181612471, 
+
+
+'max_time_queries': ['insert my_database.my_collection query: { "name": "John" } ', 'update my_database.my_collection query: { "name": "John" } update: { $set: { "age": 30 } } ', 'delete my_database.my_collection query: { "name": "John" } ', 'find my_database.my_collection filter: { "name": "John" } ', 'insert my_database.my_collection query: { "name": "John" } ', 'update my_database.my_collection query: { "name": "John" } update: { $set: { "age": 30 } } ', 'delete my_database.my_collection query: { "name": "John" } ', 'find my_database.my_collection filter: { "name": "John" } ', 'insert my_database.my_collection query: { "name": "John" } ', 'update my_database.my_collection query: { "name": "John" } update: { $set: { "age": 30 } } ', 'delete my_database.my_collection query: { "name": "John" } ', 'find my_database.my_collection filter: { "name": "John" } ', 'insert my_database.my_collection query: { "name": "John" } ', 'update my_database.my_collection query: { "name": "John" } update: { $set: { "age": 30 } } ', 'delete my_database.my_collection query: { "name": "John" } ', 'find my_database.my_collection filter: { "name": "John" } '],
+'min_time_queries': ['find my_database.my_collection filter: { "name": "James" } ', 'find my_database.my_collection filter: { "name": "James" } ', 'find my_database.my_collection filter: { "name": "James" } ', 'find my_database.my_collection filter: { "name": "James" } ']} 
+
+
+SQL
+
+{'freq_insert_query': '', 'freq_select_query': 'SELECT DISTINCT s.class, s.subClass, s.ra, s.dec, s.z, s.zErr, s.velDisp, s.velDispErr FROM PhotoObjAll AS p JOIN SpecObjAll s ON p.objID = s.bestObjID WHERE ((p.ra between 79.9547 and 79.9563) and (p.dec between -25.1007 and -25.099))', 'freq_update_query': '', 'freq_delete_query': '', 'freq_tables': ['PhotoObjAll', 'PhotozRF', 'Photoz', 'Photoz2'], 'min_time': 0.3, 'max_time': 187.0, 'mean_time': 29.148289854753955, 'max_time_queries': ['SELECT DISTINCT s.class, s.subClass, s.ra, s.dec, s.z, s.zErr, s.velDisp, s.velDispErr FROM PhotoObjAll AS p JOIN SpecObjAll s ON p.objID = s.bestObjID WHERE ((p.ra between 140.084 and 140.085) and (p.dec between -25.0947 and -25.0931))', 'SELECT DISTINCT s.class, s.subClass, s.ra, s.dec, s.z, s.zErr, s.velDisp, s.velDispErr FROM PhotoObjAll AS p JOIN SpecObjAll s ON p.objID = s.bestObjID WHERE ((p.ra between 140.084 and 140.085) and (p.dec between -25.0947 and -25.0931))'], 'min_time_queries': ['select * from PhotozRF where objid=1237663503946679148  ', 'select * from PhotozRF where objid=1237663503946679148  ']} <class 'dict'>
+
+
+# UPDATE table_name
+# SET column1 = value1, column2 = value2, ...
+# WHERE condition;
+# Shivam Thakkar3:07 PM
+# UPDATE football
+# SET goalcount=10
+# WHERE playername="Ronaldo"
+# DELETE FROM table_name WHERE condition;
+# Shivam Thakkar3:09 PM
+
+# INSERT INTO table_name (column1, column2, column3, ...)
+# VALUES (value1, value2, value3, ...);
+
+
+A simple SELECT query, which retrieves all columns and rows from a specified table.
+Copy code
+SELECT * FROM Customers;
+A SELECT query with a WHERE clause, which retrieves only the rows that meet a specified condition.
+Copy code
+SELECT * FROM Customers WHERE Country='Mexico';
+A SELECT query with a GROUP BY clause, which groups the result set by one or more columns and can be used to calculate aggregates for each group.
+Copy code
+SELECT Country, SUM(Sales) AS TotalSales FROM SalesData GROUP BY Country;
+A SELECT query with a HAVING clause, which is similar to the WHERE clause but is used to filter groups rather than individual rows.
+Copy code
+SELECT Country, SUM(Sales) AS TotalSales FROM SalesData GROUP BY Country HAVING SUM(Sales) > 1000;
+A SELECT query with a DISTINCT keyword, which returns only unique values for the specified columns.
+Copy code
+SELECT DISTINCT Country FROM SalesData;
+A SELECT query with a JOIN clause, which combines rows from two or more tables based on a specified condition.
+Copy code
+SELECT Customers.CustomerName, Orders.OrderTotal FROM Customers INNER JOIN Orders ON Customers.CustomerID = Orders.CustomerID;
+A SELECT query with a subquery, which is a SELECT statement that is nested within another SELECT statement.
+Copy code
+SELECT * FROM Customers WHERE CustomerID IN (SELECT CustomerID FROM Orders WHERE OrderTotal > 100);
+
+
+
+
+SAMPLE QUERIES
+
+INSERT INTO emp VALUES (23, "Rishabh","Bansal","M", "2014-03-28");
+INSERT INTO emp VALUES (1, "Bill", "Gates","M", "1980-10-28");
+
+SELECT * FROM emp;
+
+UPDATE emp SET lname = "Jyoti" WHERE fname="Rishabh";
+
+DELETE FROM emp WHERE fname="Rishabh";
