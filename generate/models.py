@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from jsonfield import JSONField
+
 # class Table_Name(models.Model):
 
 #     name = models.CharField(max_length=100)
@@ -32,6 +34,8 @@ class Results(models.Model):
     max_time = models.CharField(max_length=1000,blank=True,null=True)
     mean_time = models.CharField(max_length=1000,blank=True,null=True)
     freq_tables = models.CharField(max_length=1000,blank=True,null=True)
+
+    analytics = JSONField(blank=True,null=True)
 
     def __str__(self):
         return f'{self.auth_user} - {self.file_slug}'

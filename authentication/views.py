@@ -10,7 +10,7 @@ from generate.models import *
 import json
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from generate.MLModel import process_query
+from generate.MLModel import process_query, set_filepath, all_analytics
 from django.core.files.storage import default_storage
 import os
 from API_generate import settings
@@ -137,13 +137,14 @@ def setcreds(request, db_type):
         # if not request.user.is_authenticated:
         #     return HttpResponse('You need to login First')
 
-        auth_user = request.user.username
-        print('---------------',auth_user)
-        # auth_user = 'user2'
+        # auth_user = request.user.username
+        # print('---------------',auth_user)
+        auth_user = 'user1'
 
         if db_type == 'mysql':
 
             host = request.POST['host']
+            port = request.POST['port']
             user = request.POST['user']
             password = request.POST['password']
             database = request.POST['database']
@@ -160,6 +161,7 @@ def setcreds(request, db_type):
                     auth_user=auth_user)
                 ins.db_type = 'mysql'
                 ins.host = host
+                ins.port = port
                 ins.user = user
                 ins.password = password
                 ins.database = database
@@ -213,9 +215,13 @@ def setcreds(request, db_type):
                 )
                 ins.save()
 
-        result = process_query(ins.file_slug)
+        set_filepath(ins.file_slug)
+        result = process_query()
+        analytics = all_analytics()
 
-        print(result, type(result))
+        # print('a',analytics.keys())
+
+        # print(result, type(result))
 
         if Results.objects.filter(auth_user=auth_user).exists():
             Results.objects.get(auth_user=auth_user).delete()
@@ -232,12 +238,15 @@ def setcreds(request, db_type):
             freq_tables=','.join(result['freq_tables']),
             min_time=result['min_time'],
             max_time=result['max_time'],
-            mean_time=result['mean_time']
+            mean_time=result['mean_time'],
+
+            analytics = analytics
         )
         result_ins.save()
 
         time.sleep(5)
-        return HttpResponse('Success!!')
+        # return HttpResponse('success')
+        return redirect('http://127.0.0.1:5500/APIGen2.0/dashboard.html')
 
 
 @csrf_exempt

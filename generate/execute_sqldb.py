@@ -17,9 +17,10 @@ import mysql.connector
 
 
 
-def connect(host,user,password,database):
+def connect(host,port,user,password,database):
     connection = mysql.connector.connect(
     host=host,
+    port=port,
     user=user,
     passwd=password,
     database=database

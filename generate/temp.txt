@@ -66,8 +66,58 @@ SAMPLE QUERIES
 INSERT INTO emp VALUES (23, "Rishabh","Bansal","M", "2014-03-28");
 INSERT INTO emp VALUES (1, "Bill", "Gates","M", "1980-10-28");
 
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+
+INSERT INTO emp VALUES (3, "Taaha", "Multani",'M',"1980-10-28");
+INSERT INTO emp (staff_number, fname, lname) VALUES (4, "Taaha", "Multani");
+
 SELECT * FROM emp;
 
 UPDATE emp SET lname = "Jyoti" WHERE fname="Rishabh";
 
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+
 DELETE FROM emp WHERE fname="Rishabh";
+
+
+show index from emp where Key_name = 'PRIMARY' ;
+
+
+SELECT k.COLUMN_NAME
+FROM information_schema.table_constraints t
+LEFT JOIN information_schema.key_column_usage k
+USING(constraint_name,table_schema,table_name)
+WHERE t.constraint_type='PRIMARY KEY'
+    AND t.table_schema=DATABASE()
+    AND t.table_name='owalog';
+
+UPDATE emp SET fname = "Taaha", lname = "Multanii" WHERE fname = "Taaha" and lname="Multani" ; 
+
+DELETE FROM table_name WHERE condition;
+
+
+
+
+
+
+
+
+
+
+find testing-techfest.collection1 filter: { "author": "Mike" } 
+find testing-techfest.collection1 filter: { "author": "Mike", "text": "New text" } 
+
+insert testing-techfest.collection1 query: { "name": "James" }
+insert testing-techfest.collection1 query: { "name": "James", "location": "mumbai" }
+
+update testing-techfest.collection1 query: { "name": "James" } update: { $set: { "name": "JamesNew"} }
+
+delete testing-techfest.collection1 query: { "name": "JamesNew" }
+
+
+
+
+SELECT fname,lname,staff_number FROM emp
