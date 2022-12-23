@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="form.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js" integrity="sha512-d6nObkPJgV791iTGuBoVC9Aa2iecqzJRE0Jiqvk85BhLHAPhWqkuBiQb1xz2jvuHNqHLYoN3ymPfpiB1o+Zgpw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>Document</title>
+
+</head>
+<body>
+    <div style="width: 400px; background-color: #EBF7FE;"><canvas id="lineChart"></canvas></div>
+    <div style="width: 400px; background-color: #EBF7FE; margin-top: 20px;"><canvas id="scatterChart"></canvas></div>
+    <div style="width: 800px; background-color: #EBF7FE; margin-top: 20px;"><canvas id="barChart"></canvas></div>
+    <div style="width: 800px; background-color: #FFECE5; margin-top: 20px;"><canvas id="lineChart2"></canvas></div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+</body>
+
+<script>
+
+    const labels = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+    const data_line = {
+    labels: labels,
+    datasets: [{
+        label: 'Number of Queries Submitted Over Time',
+        data: [75, 83, 77, 75, 60, 69, 86, 82, 73, 80, 83, 157],
+        fill: false,
+        borderColor: 'rgb(122, 135, 255)',
+        tension: 0.1
+    }]
+    };    
+    const config_line = {
+    type: 'line',
+    data: data_line,
+    options: {
+       scales: {
+        x: {
+          grid: {
+            display: false
+          }
+        },
+        y: {
+          grid: {
+            display: false
+          }
+        }
+    }}
+    };
+
+    new Chart("lineChart", config_line);
+
+    const data_points = [{'x': 4, 'y': 3.0},
+ {'x': 4, 'y': 3.3},
+ {'x': 4, 'y': 3.3},
+ {'x': 4, 'y': 3.0},
+ {'x': 4, 'y': 3.3},
+ {'x': 4, 'y': 3.4},
+ {'x': 4, 'y': 3.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 4, 'y': 3.4},
+ {'x': 4, 'y': 3.0},
+ {'x': 4, 'y': 2.7},
+ {'x': 4, 'y': 3.3},
+ {'x': 4, 'y': 3.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 4, 'y': 3.3},
+ {'x': 4, 'y': 3.0},
+ {'x': 4, 'y': 3.4},
+ {'x': 4, 'y': 3.0},
+ {'x': 4, 'y': 2.7},
+ {'x': 4, 'y': 3.0},
+ {'x': 4, 'y': 3.4},
+ {'x': 4, 'y': 3.4},
+ {'x': 4, 'y': 3.3},
+ {'x': 4, 'y': 3.4},
+ {'x': 5, 'y': 3.0},
+ {'x': 5, 'y': 2.3},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 2.6},
+ {'x': 5, 'y': 2.4},
+ {'x': 4, 'y': 3.3},
+ {'x': 5, 'y': 2.0},
+ {'x': 5, 'y': 3.0},
+ {'x': 5, 'y': 3.7},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 3.0},
+ {'x': 5, 'y': 3.0},
+ {'x': 2, 'y': 0.3},
+ {'x': 2, 'y': 0.3},
+ {'x': 1, 'y': 0.6},
+ {'x': 2, 'y': 0.0},
+ {'x': 5, 'y': 3.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 2.3},
+ {'x': 5, 'y': 2.6},
+ {'x': 5, 'y': 2.6},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 2.0},
+ {'x': 5, 'y': 2.0},
+ {'x': 0, 'y': 2.6},
+ {'x': 0, 'y': 5.0},
+ {'x': 3, 'y': 5.0},
+ {'x': 5, 'y': 1.7},
+ {'x': 5, 'y': 2.7},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 2.3},
+ {'x': 4, 'y': 3.3},
+ {'x': 5, 'y': 2.6},
+ {'x': 5, 'y': 2.7},
+ {'x': 5, 'y': 2.0},
+ {'x': 4, 'y': 2.6},
+ {'x': 3, 'y': 0.3},
+ {'x': 0, 'y': 4.3},
+ {'x': 5, 'y': 4.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 3.7},
+ {'x': 5, 'y': 2.0},
+ {'x': 0, 'y': 3.0},
+ {'x': 3, 'y': 0.6},
+ {'x': 5, 'y': 3.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 2.0},
+ {'x': 3, 'y': 1.3},
+ {'x': 5, 'y': 3.7},
+ {'x': 3, 'y': 0.6},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 2.7},
+ {'x': 5, 'y': 3.7},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 2.0},
+ {'x': 3, 'y': 0.6},
+ {'x': 5, 'y': 3.0},
+ {'x': 4, 'y': 3.3},
+ {'x': 5, 'y': 3.0},
+ {'x': 5, 'y': 2.0},
+ {'x': 0, 'y': 3.0},
+ {'x': 0, 'y': 2.6},
+ {'x': 2, 'y': 0.6},
+ {'x': 1, 'y': 0.3},
+ {'x': 5, 'y': 3.7},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 1.3},
+ {'x': 5, 'y': 3.4},
+ {'x': 0, 'y': 2.7},
+ {'x': 3, 'y': 0.6},
+ {'x': 3, 'y': 0.6},
+ {'x': 0, 'y': 0.4},
+ {'x': 5, 'y': 3.3},
+ {'x': 5, 'y': 3.3},
+ {'x': 0, 'y': 1.6},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 2.0},
+ {'x': 3, 'y': 2.6},
+ {'x': 0, 'y': 2.0},
+ {'x': 3, 'y': 0.3},
+ {'x': 1, 'y': 0.6},
+ {'x': 1, 'y': 0.3},
+ {'x': 3, 'y': 0.6},
+ {'x': 3, 'y': 0.3},
+ {'x': 2, 'y': 0.3},
+ {'x': 2, 'y': 0.3},
+ {'x': 2, 'y': 0.3},
+ {'x': 4, 'y': 4.0},
+ {'x': 5, 'y': 2.0},
+ {'x': 5, 'y': 2.3},
+ {'x': 5, 'y': 2.0},
+ {'x': 4, 'y': 3.4},
+ {'x': 5, 'y': 2.0},
+ {'x': 4, 'y': 3.3},
+ {'x': 5, 'y': 1.7},
+ {'x': 5, 'y': 2.0},
+ {'x': 5, 'y': 1.7},
+ {'x': 5, 'y': 2.4},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 2.3},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 1.7},
+ {'x': 5, 'y': 2.6},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 2.7},
+ {'x': 5, 'y': 2.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 3.0},
+ {'x': 5, 'y': 2.0},
+ {'x': 2, 'y': 0.3},
+ {'x': 5, 'y': 3.4},
+ {'x': 5, 'y': 2.4},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 2.3},
+ {'x': 4, 'y': 2.7},
+ {'x': 5, 'y': 2.3},
+ {'x': 5, 'y': 3.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 2.3},
+ {'x': 3, 'y': 0.7},
+ {'x': 5, 'y': 2.6},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 2.0},
+ {'x': 5, 'y': 1.7},
+ {'x': 5, 'y': 3.7},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 3.3},
+ {'x': 5, 'y': 3.3},
+ {'x': 2, 'y': 0.3},
+ {'x': 2, 'y': 2.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 3.3},
+ {'x': 5, 'y': 3.6},
+ {'x': 4, 'y': 3.7},
+ {'x': 5, 'y': 2.0},
+ {'x': 5, 'y': 2.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 2.7},
+ {'x': 5, 'y': 2.0},
+ {'x': 5, 'y': 2.7},
+ {'x': 4, 'y': 2.6},
+ {'x': 5, 'y': 3.0},
+ {'x': 5, 'y': 2.6},
+ {'x': 5, 'y': 3.0},
+ {'x': 5, 'y': 3.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 3.0},
+ {'x': 5, 'y': 2.4},
+ {'x': 4, 'y': 3.6},
+ {'x': 5, 'y': 3.0},
+ {'x': 5, 'y': 2.0},
+ {'x': 4, 'y': 3.0},
+ {'x': 5, 'y': 3.6},
+ {'x': 5, 'y': 3.0},
+ {'x': 4, 'y': 3.3},
+ {'x': 5, 'y': 2.3},
+ {'x': 5, 'y': 2.6},
+ {'x': 5, 'y': 2.3},
+ {'x': 5, 'y': 3.4},
+ {'x': 4, 'y': 3.0}]
+    
+    const data_scatter = {
+    datasets: [{
+        label: 'Execution Time and Client IP Address',
+        data: data_points,
+        backgroundColor: 'rgb(122, 135, 255)'
+    }],
+    };
+    const config_scatter = {
+    type: 'scatter',
+    data: data_scatter,
+    options: {
+        scales: {
+        x: {
+            type: 'linear',
+            position: 'bottom'
+        }
+        }
+    }
+    };
+
+    new Chart("scatterChart", config_scatter);
+
+    const labels_bar = ['PhotoObjAll', 'fGetNearbyObjEq(1952.50.5)',
+       'fGetNearbyObjEq(258.2564.053)', 'Photoz', 'PhotozRF'];
+    const data_bar = {
+    labels: labels_bar,
+    datasets: [{
+        label: 'Top 5 Most Commonly Queried Tables',
+        data: [355,89,45,10,7],
+        backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+    }]
+    };
+
+    const config_bar = {
+        type: 'bar',
+        data: data_bar,
+        options: {
+            scales: {
+            y: {
+                beginAtZero: true
+            }
+            }
+        },
+        };
+
+    new Chart("barChart", config_bar);
+    
+    const labels_line = [1.661702127659574, 0.4967741935483871, 1.0622448979591839, 0.8647058823529412, 3.0988372093023258, 2.603863636363636, 6.6, 6.0, 2.35] ;
+    const data_line_2 = {
+    labels: labels_line,
+    datasets: [{
+        label: 'Load on Database by Client IP',
+        data: [440, 344, 98, 47, 34, 31, 4, 1, 1],
+        fill: false,
+        borderColor: 'rgb(255, 120, 70)',
+        tension: 0.1
+    }]
+    };    
+    const config_line_2 = {
+    type: 'line',
+    data: data_line_2,
+    options: {
+       scales: {
+        x: {
+          grid: {
+            display: false
+          }
+        },
+        y: {
+          grid: {
+            display: false
+          }
+        }
+    }}
+    };
+
+    new Chart("lineChart2", config_line_2);
+</script>
+</html>

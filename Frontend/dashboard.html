@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous" />
+
+  <!--Custom CSS -->
+  <link rel="stylesheet" href="css/dashboard.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.js" integrity="sha512-d6nObkPJgV791iTGuBoVC9Aa2iecqzJRE0Jiqvk85BhLHAPhWqkuBiQb1xz2jvuHNqHLYoN3ymPfpiB1o+Zgpw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="container text-center">
+      <div class="row" id="time">
+      </div>
+    </div> 
+  </div>
+
+  <div class="wrapper">
+      <div class="container text-center">
+        <div class="container text-center">
+          <div class="row">
+            <div class="col-5 mt-0">
+              <div class="row">
+                <div class="col mt-3">
+                  <div class="card custom-color2">
+                    <div class="card-body d-flex justify-content-center">
+                      <div style="width: 550px; background-color: #EBF7FE;"><canvas id="lineChart"></canvas></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col mt-3">
+                  <div class="card custom-color2">
+                    <div class="card-body  d-flex justify-content-center">
+                      <div style="width: 550px; background-color: #EBF7FE; margin-top: 20px;"><canvas id="scatterChart"></canvas></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-7 m-auto" > 
+              <div class="card custom-color2">
+                <div class="card-body">
+                  <div style="width: 700px; background-color: #EBF7FE; margin-top: 20px;"><canvas id="barChart"></canvas></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="wrapper">
+    <div class="container text-center">
+      <div class="card custom-color3">
+        <div class="card-body  d-flex justify-content-center">
+          <div style="width: 800px; background-color: #FFECE5; margin-top: 20px;"><canvas id="lineChart2"></canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrapper">
+    <div class="container">
+      <div class="alert alert-success" role="alert">
+        <div class="container text-center">
+          <h3>APIs Generated at: https://1373-182-48-212-224.in.ngrok.io</h3>
+        </div>
+      </div
+    </div>
+
+  </div>
+
+  <div class="wrapper">
+    <div class="container table-outer">
+      <table class="table table-primary table-hover">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">API Method</th>
+            <th scope="col">API Endpoint</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody id="table-body">
+        </tbody>
+      </table>
+    </div>
+  </div>
+      <!-- BootStrap -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"></script>
+  
+</body>
+<script>
+  const url = ""
+  var data = null;
+    fetch("https://1373-182-48-212-224.in.ngrok.io/api/v1/stats/").then(function(response) {
+      return response.json();
+    }).then(function(respdata) {
+      data = respdata;
+      console.log(data.data)
+      render_analytics(data.analytics);
+      render_analytics_2(data.data)
+      render_table(data.data)
+    }).catch(function(err) {
+      console.log('Fetch Error :-S', err);
+  });
+
+  function render_analytics(analytics){
+    console.log(analytics);
+    queries_per_month = analytics.queries_per_month;
+    queries_pm_data = queries_per_month.data;
+    const labels = [ "January", "February", "March", "April", "May", "June",
+"July", "August", "September", "October", "November", "December" ];;
+    const data_line = {
+    labels: labels,
+    datasets: [{
+        label: 'Number of Queries Submitted Over Time',
+        data: queries_pm_data,
+        fill: false,
+        borderColor: 'rgb(122, 135, 255)',
+        tension: 0.1
+    }]
+    };    
+    const config_line = {
+    type: 'line',
+    data: data_line,
+    options: {
+      scales: {
+        x: {
+          grid: {
+            display: false
+          }
+        },
+        y: {
+          grid: {
+            display: false
+          }
+        }
+    }}
+    };
+    new Chart("lineChart", config_line);
+
+    data_points= analytics.client_ip_execution;
+    const data_scatter_plot = [];
+    for (var i in data_points){
+      data_scatter_plot.push({x: parseFloat(data_points[i].x), y: parseFloat(data_points[i].y)});
+    }
+    console.log(data_scatter_plot);
+    const data_scatter = {
+    datasets: [{
+        label: 'Execution Time and Client IP Address',
+        data: data_scatter_plot,
+        backgroundColor: 'rgb(122, 135, 255)'
+    }],
+    };
+    
+    const config_scatter = {
+    type: 'scatter',
+    data: data_scatter,
+    options: {
+        scales: {
+        x: {
+            type: 'linear',
+            position: 'bottom'
+        }
+        }
+    }
+    };
+
+    new Chart("scatterChart", config_scatter);
+
+    var bar_labels = analytics.most_common_tables.labels;
+    var bar_data = analytics.most_common_tables.data;
+
+    const labels_bar = bar_labels;
+    const data_bar = {
+    labels: labels_bar,
+    datasets: [{
+        label: 'Top 5 Most Commonly Queried Tables',
+        data: bar_data,
+        backgroundColor: [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(255, 159, 64, 0.2)',
+        'rgba(255, 205, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(153, 102, 255, 0.2)',
+        'rgba(201, 203, 207, 0.2)'
+        ],
+        borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 159, 64)',
+        'rgb(255, 205, 86)',
+        'rgb(75, 192, 192)',
+        'rgb(54, 162, 235)',
+        'rgb(153, 102, 255)',
+        'rgb(201, 203, 207)'
+        ],
+        borderWidth: 1
+    }]
+    };
+
+    const config_bar = {
+        type: 'bar',
+        data: data_bar,
+        options: {
+            scales: {
+            y: {
+                beginAtZero: true
+            }
+            }
+        },
+        };
+
+    new Chart("barChart", config_bar);
+
+    load_labels = analytics.load.labels;
+    load_data = analytics.load.data;
+
+    const labels_line = load_labels ;
+    const data_line_2 = {
+    labels: labels_line,
+    datasets: [{
+        label: 'Load on Database by Client IP',
+        data: load_data,
+        fill: false,
+        borderColor: 'rgb(255, 120, 70)',
+        tension: 0.1
+    }]
+    };    
+    const config_line_2 = {
+    type: 'line',
+    data: data_line_2,
+    options: {
+      scales: {
+        x: {
+          grid: {
+            display: false
+          }
+        },
+        y: {
+          grid: {
+            display: false
+          }
+        }
+    }}
+    };
+
+    new Chart("lineChart2", config_line_2);
+  }
+
+  function render_analytics_2(analytics){
+    var min_time = parseFloat(analytics.min_time).toFixed(2);
+    var max_time = parseFloat(analytics.max_time).toFixed(2);
+    var avg_time = parseFloat(analytics.mean_time).toFixed(2);
+
+    var time_str = `
+    <div class="col">
+          <div class="card custom-color">
+            <div class="card-body row">
+              <div class="col-7">
+                <h3>Minimum Time</h3>
+                <p>The fastest running query in</p>
+              </div>
+              <div class="col-5" style="text-align:center; margin: auto;">
+                <h1 style="font-size:3em;">${min_time}ms</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card custom-color">
+            <div class="card-body row">
+              <div class="col-7">
+                <h3>Maximum Time</h3>
+                <p>The fastest running query in</p>
+              </div>
+              <div class="col-5" style="text-align:center; margin: auto;">
+                <h1 style="font-size:3em;">${max_time}ms</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card custom-color">
+            <div class="card-body row">
+              <div class="col-7">
+                <h3>Average Time</h3>
+                <p>The fastest running query in</p>
+              </div>
+              <div class="col-5" style="text-align:center; margin: auto;">
+                <h1 style="font-size:3em;">${avg_time}ms</h1>
+              </div>
+            </div>
+          </div>
+        </div>`
+
+        document.getElementById("time").innerHTML = time_str;
+  }
+
+   function render_table(data){
+    var table_data = data['freq_tables']
+      var table_int_str = ''
+      var j = 5;
+      for (var i in table_data){
+        
+        table_int_str += `<tr>
+            <th scope="row">${j}</th>
+            <td><span class="badge text-bg-light">${table_data[i]['method']}</span></td>
+            <td><a>${table_data[i]['endpoint']}</a></td>
+            <td>${table_data[i]['desc']}</td>
+          </tr>`
+        j++;
+      }
+    var table_rows_start_str = `
+      <tr>
+            <th scope="row">1</th>
+            <td><span class="badge text-bg-light">${data['freq_select_query']['method']}</span></td>
+            <td>${data['freq_select_query']['endpoint']}</td>
+            <td>${data['freq_select_query']['desc']}</td>
+        </tr>
+    <th scope="row">2</th>
+            <td><span class="badge text-bg-light">${data['freq_insert_query']['method']}</span></td>
+            <td>${data['freq_insert_query']['endpoint']}</td>
+            <td>${data['freq_insert_query']['desc']}</td>
+          </tr>
+          <tr>
+            <th scope="row">3</th>
+            <td><span class="badge text-bg-light">${data['freq_update_query']['method']}</span></td>
+            <td>${data['freq_update_query']['endpoint']}</td>
+            <td>${data['freq_update_query']['desc']}</td>
+          </tr>
+          <tr>
+            <th scope="row">4</th>
+            <td><span class="badge text-bg-light">${data['freq_delete_query']['method']}</span></td>
+            <td>${data['freq_delete_query']['endpoint']}</td>
+            <td>${data['freq_delete_query']['desc']}</td>
+          </tr>
+
+
+          ${table_int_str}`
+      
+        document.getElementById("table-body").innerHTML = table_rows_start_str;
+   }
+
+ 
+</script>
+</html>

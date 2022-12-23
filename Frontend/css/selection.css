@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;500&family=Zen+Dots&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;500&family=Quicksand:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap'); 
+
+body{
+    background-color: #E3E1EC;
+    font-family: 'Quicksand', sans-serif;
+}
+.square-container{
+    max-width: 60vw;
+    min-height: 100vh;
+}
+.navigate{
+    background-color: #fff;
+    border-radius:1.5rem;
+}
+.custom-size{
+    height: 80vh;
+    padding:0 2rem 0 2rem ;
+}
+.custom-bg-col{
+    background-color: #fff !important;
+}
+.wrapper{
+    background-color: #fff !important;
+    border-radius: 0.5rem;
+
+}
+.col{
+    padding: 1rem;
+    font-size: 1.5rem;
+}
+
+.details{
+    justify-content: center;
+    background-color: #fff !important;
+    align-items: center;
+    display: flex;
+    flex-direction:column;
+    height: 75vh;
+}
+
+.steps-sql{
+    padding: 1rem 3rem 1rem 3rem;
+}
+
+.button{
+    display: flex;
+    margin-left:60%;
+    flex-direction:column;
+    justify-content: right;
+    align-items:right;
+    margin-top:10%
+}
+.bullets{
+    margin:0;
+    font-size: 1.5rem;
+}
+#home-tab-pane{
+    background-color:#fff !important;
+    padding: 1rem 3rem 1rem 3rem;
+
+}
+#profile-tab-pane{
+    background-color:#fff !important;
+    padding: 1rem 3rem 1rem 3rem;
+}
+.nav{
+    width: 100%;
+    background-color:#CECECE;
+}
+.nav-tabs{
+    width: 100%;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+.active{
+    background-color:#304BE4 !important;
+}
+.nav-link{
+    color: #fff !important;
+}
