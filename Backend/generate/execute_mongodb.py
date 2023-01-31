@@ -1,6 +1,7 @@
 import pymongo
 from pymongo import MongoClient
 
+# Temporary Cluster
 # cluster = MongoClient("mongodb+srv://taaham:123@cluster0.imuxc.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 # db = cluster["testing-techfest"]
 # collection = db["collection1"]
